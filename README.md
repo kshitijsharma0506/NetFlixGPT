@@ -11,3 +11,15 @@ Currently, two official plugins are available:
 # Namaste NetFlix GPT:
 1. Create React App
 2. Install Tailwind CSS
+
+
+# Firebase
+
+```bash
+npm install firebase
+firebase login
+firebase init
+npm run build
+firebase deploy
+```
+
