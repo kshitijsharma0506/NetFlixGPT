@@ -3,12 +3,11 @@ import Header from './Header';
 import { checkData } from '../utils/validatation';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { USER_AVATAR, BACKGROUND_IMG } from '../utils/constant';
 
 const Login = () => {
-  const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value, 
-            photoURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvBNMmIF6YC4mjDiW_z2TpYqm93iiD1LYpfA&s"
+            photoURL: USER_AVATAR
           }).then(() => {
             const {uid, email, displayName, photoURL} = auth.currentUser;
             dispatch(addUser({
@@ -43,13 +42,9 @@ const Login = () => {
               displayName: displayName, 
               photoURL: photoURL
             }));
-            navigate("/browse");
           }).catch((error) => {
             setErrorMessage(error);
           });
-          
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -64,7 +59,6 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -82,7 +76,7 @@ const Login = () => {
         <Header />
         <div className='absolute'>
           <img
-            src="https://assets.nflxext.com/ffe/siteui/vlv3/47c2bc92-5a2a-4f33-8f91-4314e9e62ef1/web/IN-en-20240916-TRIFECTA-perspective_72df5d07-cf3f-4530-9afd-8f1d92d7f1a8_medium.jpg" alt="Background Img"
+            src={BACKGROUND_IMG} alt="Background Img"
           />
         </div>
 
